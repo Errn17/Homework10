@@ -4,3 +4,19 @@
 const Employee = require("./Employee");
 
 //class for the Engineer, will also be using the emplyee one to avoid duplicating the constructor parts. Will utilize the "super" keyword
+class Engineer extends Employee {
+  constructor(name, id, email, github) {
+    super(name, id, email);
+    this.github = github;
+  }
+
+  getGithub() {
+    return this.github;
+  }
+
+  getRole() {
+    return "Engineer";
+  }
+}
+
+module.exports = Engineer;

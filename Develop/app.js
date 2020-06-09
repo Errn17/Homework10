@@ -10,7 +10,6 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 
-
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
 
@@ -33,3 +32,104 @@ const render = require("./lib/htmlRenderer");
 // for further information. Be sure to test out each class and verify it generates an
 // object with the correct structure and methods. This structure will be crucial in order
 // for the provided `render` function to work! ```
+
+//Manager function prompting the user with the following questions, will store the data until the function is called to push to the html
+function promptManager() {
+  inquirer
+    .prompt([
+      {
+        type: "Input",
+        name: "Name",
+        message: "Managers name: ",
+      },
+      {
+        type: "Input",
+        name: "Email",
+        message: "Managers email: ",
+      },
+      {
+        type: "Input",
+        name: "Id",
+        message: "Managers id: ",
+      },
+      {
+        type: "Input",
+        name: "OfficeNumber",
+        message: "Managers office number: ",
+      },
+    ])
+    .then((res) => {
+      const manager = new Manager(
+        res.Name,
+        res.Email,
+        res.Id,
+        res.OfficeNumber
+      );
+      teamArray.push(manager);
+      addEmployees();
+    });
+}
+
+//Engineer prompt function
+function promptEngineer() {
+  inquirer
+    .prompt([
+      {
+        type: "Input",
+        name: "Name",
+        message: "Engineers name: ",
+      },
+      {
+        type: "Input",
+        name: "Email",
+        message: "Engineers email: ",
+      },
+      {
+        type: "Input",
+        name: "Id",
+        message: "Engineers id: ",
+      },
+      {
+        type: "Input",
+        name: "Github",
+        message: "Engineers Github profile: ",
+      },
+    ])
+    .then((res) => {
+      const engineer = new Engineer(res.Name, res.Email, res.Id, res.Github);
+      teamArray.push(engineer);
+      addEmployees();
+    });
+}
+
+//Intern prompt function
+function promptIntern() {
+  inquirer
+    .prompt([
+      {
+        type: "Input",
+        name: "Name",
+        message: "Interns name: ",
+      },
+      {
+        type: "Input",
+        name: "Email",
+        message: "Interns email: ",
+      },
+      {
+        type: "Input",
+        name: "Id",
+        message: "Interns id: ",
+      },
+      {
+        type: "Input",
+        name: "School",
+        message: "Interns school name: ",
+      },
+    ])
+    .then((res) => {
+      const intern = new Intern(res.Name, res.Email, res.Id, res.School);
+      teamArray.push(intern);
+      addEmployees();
+    });
+}
