@@ -9,6 +9,8 @@ const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
+const teamArray = [];
+const html = render(teamArray);
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
@@ -133,3 +135,42 @@ function promptIntern() {
       addEmployees();
     });
 }
+
+function addEmployees() {
+  inquirer
+    .prompt([
+      {
+        type: "list",
+        message: "Add an employee?",
+        name: "employee",
+        choices: [
+          "Manager",
+          "Engineer",
+          "Intern",
+          "Dream team is finished, no one else is needed.",
+        ],
+      },
+    ])
+    .then((res) => {
+      console.log(res.employee);
+      switch (res.employee) {
+        case "Manager":
+          promptManager();
+          break;
+        case "Engineer":
+          promptEngineer();
+          break;
+        case "Intern":
+          promptIntern();
+        default:
+          fs.writeFile(outputPath, html, function (err) {
+            if (err) {
+              return console.log(err);
+            }
+            console.log("Good to go!!");
+          });
+      }
+    });
+}
+
+addEmployees();
